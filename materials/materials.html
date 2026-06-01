@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Материалы</title>
 
 <style>
@@ -24,33 +23,50 @@ body{
   margin:0;
   min-height:100vh;
   background:
-    radial-gradient(circle at top, rgba(35,48,69,.5), transparent 40%),
+    radial-gradient(circle at top, rgba(35,48,69,.45), transparent 40%),
     linear-gradient(180deg,#0d1117 0%,#090c11 100%);
   color:var(--paper);
   font-family:"Courier New", monospace;
   padding:20px;
 }
 
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.025),
+      rgba(255,255,255,.025) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  opacity:.35;
+  pointer-events:none;
+  z-index:2;
+}
+
 body::after{
   content:"";
   position:fixed;
   inset:0;
-  background:repeating-linear-gradient(
-    0deg,
-    rgba(255,255,255,.03),
-    rgba(255,255,255,.03) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-  opacity:.2;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,.04), transparent 18%),
+    radial-gradient(circle at 80% 60%, rgba(255,255,255,.025), transparent 22%);
+  mix-blend-mode:screen;
+  opacity:.25;
   pointer-events:none;
+  z-index:3;
 }
 
 .wrap{
   width:100%;
-  max-width:520px;
+  max-width:560px;
   margin:0 auto;
-  padding-bottom:90px;
+  padding-bottom:100px;
+  position:relative;
+  z-index:4;
 }
 
 .card,
@@ -58,11 +74,11 @@ body::after{
 .verify{
   background:rgba(17,22,29,.92);
   border:1px solid rgba(216,208,194,.16);
-  box-shadow:0 0 35px rgba(0,0,0,.55);
+  box-shadow:0 0 35px rgba(0,0,0,.55), inset 0 0 18px rgba(255,255,255,.02);
   margin-bottom:18px;
 }
 
-.card{
+.card,.verify{
   padding:22px;
 }
 
@@ -78,6 +94,7 @@ h1{
   margin:0 0 10px;
   font-size:28px;
   letter-spacing:3px;
+  animation:glitch 4s infinite;
 }
 
 p{
@@ -111,7 +128,7 @@ p{
 .file img{
   width:100%;
   display:block;
-  filter:contrast(.9) saturate(.75) brightness(.82);
+  filter:contrast(.86) saturate(.68) brightness(.8);
 }
 
 .file-body{
@@ -137,32 +154,42 @@ p{
   font-size:12px;
 }
 
-.verify{
-  padding:22px;
+.hidden{
+  display:none;
 }
 
-.verify input{
-  width:100%;
+.digit-row{
+  display:flex;
+  gap:6px;
+  margin:12px 0 18px;
+}
+
+.digit{
+  width:34px;
+  height:42px;
   background:#0b1016;
   border:1px solid var(--line);
   color:var(--paper);
-  padding:14px;
-  margin:10px 0 14px;
-  font-size:18px;
-  letter-spacing:3px;
-  outline:none;
+  text-align:center;
+  font-size:20px;
   font-family:"Courier New", monospace;
+  outline:none;
 }
 
-.verify input:focus{
+.digit:focus{
   border-color:var(--amber);
+  box-shadow:0 0 10px rgba(169,130,61,.35);
+  animation:blink .8s infinite;
 }
 
-.pattern{
-  color:var(--metal);
-  font-size:12px;
-  margin-top:-8px;
-  margin-bottom:12px;
+.dot{
+  width:18px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--amber);
+  font-size:22px;
 }
 
 button{
@@ -187,7 +214,7 @@ button{
   padding:13px 16px;
   background:var(--danger);
   color:#fff;
-  z-index:5;
+  z-index:10;
 }
 
 .message{
@@ -197,15 +224,73 @@ button{
   color:var(--metal);
   line-height:1.5;
 }
+
 .next-task{
   margin-top:22px;
   padding:18px;
   border:1px solid rgba(169,130,61,.55);
-  background:rgba(9,12,17,.65);
+  background:rgba(9,12,17,.7);
   box-shadow:inset 0 0 18px rgba(169,130,61,.06);
 }
+
+.next-task input{
+  width:100%;
+  background:#0b1016;
+  border:1px solid var(--line);
+  color:var(--paper);
+  padding:14px;
+  margin:10px 0 14px;
+  font-size:17px;
+  outline:none;
+  font-family:"Courier New", monospace;
+}
+
 .error{color:var(--danger)}
 .success{color:var(--success)}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:20;
+}
+
+.modal-card{
+  width:100%;
+  max-width:380px;
+  background:#11161d;
+  border:1px solid rgba(216,208,194,.2);
+  padding:24px;
+  box-shadow:0 0 40px rgba(0,0,0,.8);
+}
+
+.modal a{
+  display:block;
+  text-align:center;
+  background:var(--danger);
+  color:white;
+  text-decoration:none;
+  padding:14px;
+  margin-top:14px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.55}
+}
+
+@keyframes glitch{
+  0%,92%,100%{transform:none}
+  93%{transform:translateX(1px)}
+  94%{transform:translateX(-1px)}
+  95%{transform:none}
+}
 </style>
 </head>
 
@@ -213,136 +298,78 @@ button{
 
 <main class="wrap">
 
-  <section class="card">
-    <div class="label">restored files</div>
-    <h1>МАТЕРИАЛЫ</h1>
+<section class="card">
+  <div class="label">restored files</div>
+  <h1>МАТЕРИАЛЫ</h1>
+  <p>Доступны восстановленные фрагменты архива.</p>
+  <div class="meta">
+    Статус: частично восстановлено<br>
+    Доступно файлов: 8<br>
+    Последовательность: сохранена
+  </div>
+  <div class="note">
+    Некоторые материалы могут содержать данные, необходимые для продолжения.
+  </div>
+</section>
 
-    <p>
-      Доступны восстановленные фрагменты архива.
-    </p>
+<section class="file"><img src="PHOTO_01.jpg"><div class="file-body"><div class="file-title">Файл 01</div><div class="file-name">PHOTO_01.jpg</div><div class="file-status">Восстановлено полностью</div></div></section>
+<section class="file"><img src="PHOTO_02.jpg"><div class="file-body"><div class="file-title">Файл 02</div><div class="file-name">PHOTO_02.jpg</div><div class="file-status">Восстановлено полностью</div></div></section>
+<section class="file"><img src="PHOTO_03.jpg"><div class="file-body"><div class="file-title">Файл 03</div><div class="file-name">PHOTO_03.jpg</div><div class="file-status">Повреждение изображения: 2%</div></div></section>
+<section class="file"><img src="PHOTO_04.jpg"><div class="file-body"><div class="file-title">Файл 04</div><div class="file-name">PHOTO_04.jpg</div><div class="file-status">Повреждение изображения: 3%</div></div></section>
+<section class="file"><img src="PHOTO_05.jpg"><div class="file-body"><div class="file-title">Файл 05</div><div class="file-name">PHOTO_05.jpg</div><div class="file-status">Восстановлено полностью</div></div></section>
+<section class="file"><img src="PHOTO_06.jpg"><div class="file-body"><div class="file-title">Файл 06</div><div class="file-name">PHOTO_06.jpg</div><div class="file-status">Фрагмент документа</div></div></section>
+<section class="file"><img src="PHOTO_07.jpg"><div class="file-body"><div class="file-title">Файл 07</div><div class="file-name">PHOTO_07.jpg</div><div class="file-status">Фрагмент документа</div></div></section>
+<section class="file"><img src="PHOTO_08.jpg"><div class="file-body"><div class="file-title">Файл 08</div><div class="file-name">PHOTO_08.jpg</div><div class="file-status">Восстановлено частично</div></div></section>
 
-    <div class="meta">
-      Статус: частично восстановлено<br>
-      Доступно файлов: 8<br>
-      Последовательность: сохранена
-    </div>
+<section class="verify">
+  <div class="label">data verification</div>
+  <h1>АНАЛИЗ</h1>
 
-    <div class="note">
-      Некоторые материалы могут содержать данные, необходимые для продолжения.
-    </div>
-  </section>
+  <p>Часть данных удалось восстановить. Для продолжения необходимо подтвердить найденную информацию.</p>
 
-  <section class="file">
-    <img src="PHOTO_01.jpg" alt="PHOTO_01">
-    <div class="file-body">
-      <div class="file-title">Файл 01</div>
-      <div class="file-name">PHOTO_01.jpg</div>
-      <div class="file-status">Восстановлено полностью</div>
-    </div>
-  </section>
+  <label>Данные 01</label>
+  <div class="digit-row" data-target="data01">
+    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><span class="dot">.</span>
+    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><input class="digit" maxlength="1">
+    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><input class="digit" maxlength="1">
+  </div>
 
-  <section class="file">
-    <img src="PHOTO_02.jpg" alt="PHOTO_02">
-    <div class="file-body">
-      <div class="file-title">Файл 02</div>
-      <div class="file-name">PHOTO_02.jpg</div>
-      <div class="file-status">Восстановлено полностью</div>
-    </div>
-  </section>
+  <label>Данные 02</label>
+  <div class="digit-row" data-target="data02">
+    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><span class="dot">.</span>
+    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><input class="digit" maxlength="1">
+    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><input class="digit" maxlength="1">
+  </div>
 
-  <section class="file">
-    <img src="PHOTO_03.jpg" alt="PHOTO_03">
-    <div class="file-body">
-      <div class="file-title">Файл 03</div>
-      <div class="file-name">PHOTO_03.jpg</div>
-      <div class="file-status">Повреждение изображения: 2%</div>
-    </div>
-  </section>
+  <button onclick="verifyData()">Подтвердить</button>
 
-  <section class="file">
-    <img src="PHOTO_04.jpg" alt="PHOTO_04">
-    <div class="file-body">
-      <div class="file-title">Файл 04</div>
-      <div class="file-name">PHOTO_04.jpg</div>
-      <div class="file-status">Повреждение изображения: 3%</div>
-    </div>
-  </section>
+  <div id="verifyMessage" class="message"></div>
 
-  <section class="file">
-    <img src="PHOTO_05.jpg" alt="PHOTO_05">
-    <div class="file-body">
-      <div class="file-title">Файл 05</div>
-      <div class="file-name">PHOTO_05.jpg</div>
-      <div class="file-status">Восстановлено полностью</div>
-    </div>
-  </section>
+  <div id="nextTask" class="next-task hidden">
+    <div class="label">field response</div>
+    <p>Ответ с локации</p>
 
-  <section class="file">
-    <img src="PHOTO_06.jpg" alt="PHOTO_06">
-    <div class="file-body">
-      <div class="file-title">Файл 06</div>
-      <div class="file-name">PHOTO_06.jpg</div>
-      <div class="file-status">Фрагмент документа</div>
-    </div>
-  </section>
+    <input id="fieldAnswer" type="text" placeholder="Введите ответ">
 
-  <section class="file">
-    <img src="PHOTO_07.jpg" alt="PHOTO_07">
-    <div class="file-body">
-      <div class="file-title">Файл 07</div>
-      <div class="file-name">PHOTO_07.jpg</div>
-      <div class="file-status">Фрагмент документа</div>
-    </div>
-  </section>
+    <button onclick="checkFieldAnswer()">Отправить ответ</button>
 
-  <section class="file">
-    <img src="PHOTO_08.jpg" alt="PHOTO_08">
-    <div class="file-body">
-      <div class="file-title">Файл 08</div>
-      <div class="file-name">PHOTO_08.jpg</div>
-      <div class="file-status">Восстановлено частично</div>
-    </div>
-  </section>
-
-  <section class="verify">
-    <div class="label">data verification</div>
-    <h1>АНАЛИЗ</h1>
-
-    <p>
-      Часть данных удалось восстановить. Для продолжения необходимо подтвердить найденную информацию.
-    </p>
-
-    <label>Данные 01</label>
-    <input id="data01" type="text" maxlength="9" placeholder="__.__ ____">
-    <div class="pattern">Формат: __.______</div>
-
-    <label>Данные 02</label>
-    <input id="data02" type="text" maxlength="9" placeholder="__.__ ____">
-    <div class="pattern">Формат: __.______</div>
-
-   <button onclick="verifyData()">Подтвердить</button>
-
-<div id="verifyMessage" class="message"></div>
-
-<div id="nextTask" class="next-task hidden">
-  <div class="label">field response</div>
-
-  <p>
-    Ответ с локации
-  </p>
-
-  <input id="fieldAnswer" type="text" placeholder="Введите ответ">
-
-  <button onclick="checkFieldAnswer()">Отправить ответ</button>
-
-  <div id="fieldMessage" class="message"></div>
-</div>
-
+    <div id="fieldMessage" class="message"></div>
+  </div>
 </section>
 
 </main>
 
-<button class="help" onclick="requestHelp()">Помощь</button>
+<button class="help" onclick="openHelp()">Помощь</button>
+
+<div id="helpModal" class="modal">
+  <div class="modal-card">
+    <div class="label">emergency channel</div>
+    <h1>ПОМОЩЬ</h1>
+    <p>Если вы застряли или на локации возникла проблема, свяжитесь с организатором.</p>
+    <a href="tel:+79891302318">ПОЗВОНИТЬ</a>
+    <button onclick="closeHelp()">Закрыть</button>
+  </div>
+</div>
 
 <script>
 const ORGANIZER_PHONE = "+79891302318";
@@ -350,63 +377,82 @@ const ORGANIZER_PHONE = "+79891302318";
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbzwtBCE16tLc-E0303pKpkXel4uKSItdD0KoY-3bNPNVvxwiPRelNOBBZyU1mBE_Z1scA/exec";
 
-function requestHelp(){
-  const team = localStorage.getItem("teamName") || "Команда не указана";
-  const phone = localStorage.getItem("captainPhone") || "";
+document.querySelectorAll(".digit").forEach((input, index, all) => {
+  input.addEventListener("input", () => {
+    input.value = input.value.replace(/\D/g, "");
+    if(input.value && all[index + 1]) all[index + 1].focus();
+  });
 
+  input.addEventListener("keydown", (e) => {
+    if(e.key === "Backspace" && !input.value && all[index - 1]) {
+      all[index - 1].focus();
+    }
+  });
+});
+
+function getDataValue(rowSelector){
+  const row = document.querySelector(`[data-target="${rowSelector}"]`);
+  const nums = Array.from(row.querySelectorAll(".digit")).map(i => i.value).join("");
+  if(nums.length !== 8) return "";
+  return nums.slice(0,2) + "." + nums.slice(2);
+}
+
+function openHelp(){
   fetch(SCRIPT_URL, {
     method: "POST",
     mode: "no-cors",
     body: JSON.stringify({
-      team: team,
-      phone: phone,
+      team: localStorage.getItem("teamName") || "Команда не указана",
+      phone: localStorage.getItem("captainPhone") || "",
       action: "hint",
       stage: "Материалы",
       code: ""
     })
   });
 
-  window.location.href = "tel:" + ORGANIZER_PHONE;
+  document.getElementById("helpModal").style.display = "flex";
+}
+
+function closeHelp(){
+  document.getElementById("helpModal").style.display = "none";
 }
 
 function verifyData(){
-  const d1 = document.getElementById("data01").value.trim();
-  const d2 = document.getElementById("data02").value.trim();
+  const d1 = getDataValue("data01");
+  const d2 = getDataValue("data02");
   const msg = document.getElementById("verifyMessage");
 
-if(d1 === "43.732489" && d2 === "44.688291"){
-  msg.className = "message success";
-  msg.innerHTML =
-    "СОВПАДЕНИЕ ПОДТВЕРЖДЕНО.<br><br>" +
-    "Фрагменты сложились в точку, которой не должно было быть в архиве.<br><br>" +
-    "Отправляйтесь туда. Осмотрите место внимательно. Не забирайте лишнего. Не оставляйте следов.<br><br>" +
-    "Если найдёте то, что было оставлено после него, вернитесь сюда и введите ответ ниже.";
+  if(d1 === "43.732489" && d2 === "44.688291"){
+    msg.className = "message success";
+    msg.innerHTML =
+      "СОВПАДЕНИЕ ПОДТВЕРЖДЕНО.<br><br>" +
+      "Фрагменты сложились в точку, которой не должно было быть в архиве.<br><br>" +
+      "Отправляйтесь туда. Осмотрите место внимательно. Не забирайте лишнего. Не оставляйте следов.<br><br>" +
+      "Если найдёте то, что было оставлено после него, вернитесь сюда и введите ответ ниже.";
 
-  document.getElementById("nextTask").classList.remove("hidden");
+    document.getElementById("nextTask").classList.remove("hidden");
 
-} else {
+  } else {
     msg.className = "message error";
     msg.textContent = "Данные не совпадают с восстановленными материалами.";
   }
 }
-  function checkFieldAnswer(){
+
+function checkFieldAnswer(){
   const answer = document.getElementById("fieldAnswer").value.trim().toLowerCase();
   const msg = document.getElementById("fieldMessage");
 
   if(answer === "3840"){
     msg.className = "message success";
-    msg.innerHTML =
-      "ОТВЕТ ПРИНЯТ.<br><br>" +
-      "Архивный уровень разблокирован.";
+    msg.innerHTML = "ОТВЕТ ПРИНЯТ.<br><br>Архивный уровень разблокирован.";
 
     setTimeout(() => {
-      window.location.href = "archive1.html";
+      window.location.href = "../archive1.html";
     }, 1200);
 
   } else {
     msg.className = "message error";
-    msg.textContent =
-      "Ответ не совпадает с материалами, найденными на месте.";
+    msg.textContent = "Ответ не совпадает с материалами, найденными на месте.";
   }
 }
 </script>
