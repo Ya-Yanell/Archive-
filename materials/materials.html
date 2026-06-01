@@ -148,13 +148,16 @@ p{
 }
 
 .digit-row{
-  display:flex;
-  gap:6px;
+  display:grid;
+  grid-template-columns: 1fr 1fr 14px 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap:5px;
   margin:12px 0 18px;
+  align-items:center;
 }
 
 .digit{
-  width:34px;
+  width:100%;
+  min-width:0;
   height:42px;
   background:#070707;
   border:1px solid var(--line);
@@ -165,20 +168,18 @@ p{
   outline:none;
 }
 
-.digit:focus{
-  border-color:var(--amber);
-  box-shadow:0 0 10px rgba(169,130,61,.35);
-  animation:blink .8s infinite;
-}
-
 .dot{
-  width:18px;
   height:42px;
   display:flex;
   align-items:center;
   justify-content:center;
   color:var(--amber);
   font-size:22px;
+}
+.digit:focus{
+  border-color:var(--amber);
+  box-shadow:0 0 10px rgba(169,130,61,.35);
+  animation:blink .8s infinite;
 }
 
 button{
