@@ -345,6 +345,35 @@ function openMaterials(){
   window.location.href = "materials.html";
 }
 </script>
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbzwtBCE16tLc-E0303pKpkXel4uKSItdD0KoY-3bNPNVvxwiPRelNOBBZyU1mBE_Z1scA/exec";
 
+async function sendEvent(action, stage, code = "") {
+
+  const team = localStorage.getItem("teamName") || "";
+  const phone = localStorage.getItem("captainPhone") || "";
+
+  try {
+
+    const response = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        team,
+        phone,
+        action,
+        stage,
+        code
+      })
+    });
+
+    return await response.json();
+
+  } catch (err) {
+    console.error(err);
+  }
+}
 </body>
 </html>
