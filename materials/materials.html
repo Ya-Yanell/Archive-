@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Материалы</title>
 
 <style>
 :root{
-  --bg:#090c11;
-  --panel:#11161d;
+  --bg:#0b1118;
+  --panel:#101722;
   --paper:#d8d0c2;
   --amber:#a9823d;
   --line:#2a3440;
@@ -23,8 +24,8 @@ body{
   margin:0;
   min-height:100vh;
   background:
-    radial-gradient(circle at top, rgba(35,48,69,.45), transparent 40%),
-    linear-gradient(180deg,#0d1117 0%,#090c11 100%);
+    radial-gradient(circle at top, rgba(38,55,78,.45), transparent 42%),
+    linear-gradient(180deg,#101821 0%,#080c12 100%);
   color:var(--paper);
   font-family:"Courier New", monospace;
   padding:20px;
@@ -35,29 +36,12 @@ body::before{
   position:fixed;
   inset:0;
   background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,.025),
-      rgba(255,255,255,.025) 1px,
-      transparent 1px,
-      transparent 4px
-    );
-  opacity:.35;
+    radial-gradient(circle at 20% 20%, rgba(216,208,194,.035), transparent 18%),
+    radial-gradient(circle at 75% 65%, rgba(216,208,194,.025), transparent 24%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='4'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  opacity:.18;
   pointer-events:none;
-  z-index:2;
-}
-
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,.04), transparent 18%),
-    radial-gradient(circle at 80% 60%, rgba(255,255,255,.025), transparent 22%);
-  mix-blend-mode:screen;
-  opacity:.25;
-  pointer-events:none;
-  z-index:3;
+  z-index:1;
 }
 
 .wrap{
@@ -66,15 +50,17 @@ body::after{
   margin:0 auto;
   padding-bottom:100px;
   position:relative;
-  z-index:4;
+  z-index:2;
 }
 
 .card,
 .file,
 .verify{
-  background:rgba(17,22,29,.92);
+  background:rgba(16,23,34,.92);
   border:1px solid rgba(216,208,194,.16);
-  box-shadow:0 0 35px rgba(0,0,0,.55), inset 0 0 18px rgba(255,255,255,.02);
+  box-shadow:
+    0 0 35px rgba(0,0,0,.55),
+    inset 0 0 22px rgba(255,255,255,.025);
   margin-bottom:18px;
 }
 
@@ -94,7 +80,7 @@ h1{
   margin:0 0 10px;
   font-size:28px;
   letter-spacing:3px;
-  animation:glitch 4s infinite;
+  animation:textNoise 4s infinite;
 }
 
 p{
@@ -128,7 +114,8 @@ p{
 .file img{
   width:100%;
   display:block;
-  filter:contrast(.86) saturate(.68) brightness(.8);
+  cursor:zoom-in;
+  filter:contrast(.86) saturate(.68) brightness(.82);
 }
 
 .file-body{
@@ -141,6 +128,7 @@ p{
   letter-spacing:2px;
   text-transform:uppercase;
   margin-bottom:6px;
+  animation:textNoise 5s infinite;
 }
 
 .file-name{
@@ -248,24 +236,25 @@ button{
 .error{color:var(--danger)}
 .success{color:var(--success)}
 
-.modal{
+.modal,
+.photo-modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.72);
+  background:rgba(3,5,8,.92);
   display:none;
   align-items:center;
   justify-content:center;
-  padding:20px;
-  z-index:20;
+  padding:18px;
+  z-index:50;
 }
 
 .modal-card{
   width:100%;
   max-width:380px;
   background:#11161d;
-  border:1px solid rgba(216,208,194,.2);
+  border:1px solid rgba(216,208,194,.22);
   padding:24px;
-  box-shadow:0 0 40px rgba(0,0,0,.8);
+  box-shadow:0 0 40px rgba(0,0,0,.85);
 }
 
 .modal a{
@@ -280,16 +269,41 @@ button{
   letter-spacing:2px;
 }
 
-@keyframes blink{
-  0%,100%{opacity:1}
-  50%{opacity:.55}
+.photo-modal img{
+  max-width:100%;
+  max-height:92vh;
+  border:1px solid rgba(216,208,194,.25);
+  box-shadow:0 0 40px rgba(0,0,0,.9);
+  cursor:zoom-out;
 }
 
-@keyframes glitch{
-  0%,92%,100%{transform:none}
-  93%{transform:translateX(1px)}
-  94%{transform:translateX(-1px)}
-  95%{transform:none}
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.45}
+}
+
+@keyframes textNoise{
+  0%, 88%, 100%{
+    opacity:1;
+    transform:none;
+    text-shadow:none;
+  }
+  89%{
+    opacity:.35;
+    transform:translateX(1px);
+    text-shadow:2px 0 rgba(169,130,61,.45);
+  }
+  90%{
+    opacity:.9;
+    transform:translateX(-1px);
+  }
+  91%{
+    opacity:.2;
+  }
+  92%{
+    opacity:1;
+    transform:none;
+  }
 }
 </style>
 </head>
@@ -302,23 +316,90 @@ button{
   <div class="label">restored files</div>
   <h1>МАТЕРИАЛЫ</h1>
   <p>Доступны восстановленные фрагменты архива.</p>
+
   <div class="meta">
     Статус: частично восстановлено<br>
     Доступно файлов: 8<br>
     Последовательность: сохранена
   </div>
+
   <div class="note">
     Некоторые материалы могут содержать данные, необходимые для продолжения.
   </div>
 </section>
-<section class="file"><img src="/Archive-/materials/PHOTO_01.jpg"
-<section class="file"><img src="/Archive-/materials/PHOTO_02.jpg"
-<section class="file"><img src="/Archive-/materials/PHOTO_03.jpg"
-<section class="file"><img src="/Archive-/materials/PHOTO_04.jpg"
-<section class="file"><img src="/Archive-/materials/PHOTO_05.jpg"
-<section class="file"><img src="/Archive-/materials/PHOTO_06.jpg"
-<section class="file"><img src="/Archive-/materials/PHOTO_07.jpg"
-<section class="file"><img src="/Archive-/materials/PHOTO_08.jpg"
+
+<section class="file">
+  <img src="/Archive-/materials/PHOTO_01.jpg" onclick="openPhoto(this.src)">
+  <div class="file-body">
+    <div class="file-title">Файл 01</div>
+    <div class="file-name">PHOTO_01.jpg</div>
+    <div class="file-status">Восстановлено полностью</div>
+  </div>
+</section>
+
+<section class="file">
+  <img src="/Archive-/materials/PHOTO_02.jpg" onclick="openPhoto(this.src)">
+  <div class="file-body">
+    <div class="file-title">Файл 02</div>
+    <div class="file-name">PHOTO_02.jpg</div>
+    <div class="file-status">Восстановлено полностью</div>
+  </div>
+</section>
+
+<section class="file">
+  <img src="/Archive-/materials/PHOTO_03.jpg" onclick="openPhoto(this.src)">
+  <div class="file-body">
+    <div class="file-title">Файл 03</div>
+    <div class="file-name">PHOTO_03.jpg</div>
+    <div class="file-status">Повреждение изображения: 2%</div>
+  </div>
+</section>
+
+<section class="file">
+  <img src="/Archive-/materials/PHOTO_04.jpg" onclick="openPhoto(this.src)">
+  <div class="file-body">
+    <div class="file-title">Файл 04</div>
+    <div class="file-name">PHOTO_04.jpg</div>
+    <div class="file-status">Повреждение изображения: 3%</div>
+  </div>
+</section>
+
+<section class="file">
+  <img src="/Archive-/materials/PHOTO_05.jpg" onclick="openPhoto(this.src)">
+  <div class="file-body">
+    <div class="file-title">Файл 05</div>
+    <div class="file-name">PHOTO_05.jpg</div>
+    <div class="file-status">Восстановлено полностью</div>
+  </div>
+</section>
+
+<section class="file">
+  <img src="/Archive-/materials/PHOTO_06.jpg" onclick="openPhoto(this.src)">
+  <div class="file-body">
+    <div class="file-title">Файл 06</div>
+    <div class="file-name">PHOTO_06.jpg</div>
+    <div class="file-status">Фрагмент документа</div>
+  </div>
+</section>
+
+<section class="file">
+  <img src="/Archive-/materials/PHOTO_07.jpg" onclick="openPhoto(this.src)">
+  <div class="file-body">
+    <div class="file-title">Файл 07</div>
+    <div class="file-name">PHOTO_07.jpg</div>
+    <div class="file-status">Фрагмент документа</div>
+  </div>
+</section>
+
+<section class="file">
+  <img src="/Archive-/materials/PHOTO_08.jpg" onclick="openPhoto(this.src)">
+  <div class="file-body">
+    <div class="file-title">Файл 08</div>
+    <div class="file-name">PHOTO_08.jpg</div>
+    <div class="file-status">Восстановлено частично</div>
+  </div>
+</section>
+
 <section class="verify">
   <div class="label">data verification</div>
   <h1>АНАЛИЗ</h1>
@@ -327,16 +408,28 @@ button{
 
   <label>Данные 01</label>
   <div class="digit-row" data-target="data01">
-    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><span class="dot">.</span>
-    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><input class="digit" maxlength="1">
-    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <span class="dot">.</span>
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
   </div>
 
   <label>Данные 02</label>
   <div class="digit-row" data-target="data02">
-    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><span class="dot">.</span>
-    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><input class="digit" maxlength="1">
-    <input class="digit" maxlength="1"><input class="digit" maxlength="1"><input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <span class="dot">.</span>
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
+    <input class="digit" maxlength="1">
   </div>
 
   <button onclick="verifyData()">Подтвердить</button>
@@ -367,6 +460,10 @@ button{
     <a href="tel:+79891302318">ПОЗВОНИТЬ</a>
     <button onclick="closeHelp()">Закрыть</button>
   </div>
+</div>
+
+<div id="photoModal" class="photo-modal" onclick="closePhoto()">
+  <img id="modalImage" src="">
 </div>
 
 <script>
@@ -413,6 +510,15 @@ function openHelp(){
 
 function closeHelp(){
   document.getElementById("helpModal").style.display = "none";
+}
+
+function openPhoto(src){
+  document.getElementById("modalImage").src = src;
+  document.getElementById("photoModal").style.display = "flex";
+}
+
+function closePhoto(){
+  document.getElementById("photoModal").style.display = "none";
 }
 
 function verifyData(){
