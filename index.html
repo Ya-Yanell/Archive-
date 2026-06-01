@@ -1,285 +1,335 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Архив E38</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    :root {
-      --bg: #0D1117;
-      --panel: #111827;
-      --blue: #1D2B44;
-      --paper: #E8E1D5;
-      --metal: #5B6168;
-      --amber: #C88B2D;
-      --red: #B33939;
-    }
+<title>Проект Феникс</title>
 
-    * {
-      box-sizing: border-box;
-    }
+<style>
+:root{
+  --bg:#090c11;
+  --panel:#11161d;
+  --paper:#d8d0c2;
+  --amber:#a9823d;
+  --line:#2a3440;
+  --metal:#7f868c;
+  --danger:#8d4b4b;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top, rgba(29,43,68,0.7), transparent 45%),
-        linear-gradient(180deg, #0D1117 0%, #07090D 100%);
-      color: var(--paper);
-      font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-    }
+*{box-sizing:border-box}
 
-    .screen {
-      width: 100%;
-      max-width: 430px;
-      border: 1px solid rgba(232,225,213,0.18);
-      background: rgba(17,24,39,0.88);
-      box-shadow: 0 0 40px rgba(0,0,0,0.7);
-      padding: 28px 22px;
-    }
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top, rgba(35,48,69,.5), transparent 40%),
+    linear-gradient(180deg,#0d1117 0%,#090c11 100%);
+  color:var(--paper);
+  font-family:"Courier New", monospace;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
 
-    .label {
-      color: var(--amber);
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.03) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  opacity:.2;
+  pointer-events:none;
+}
 
-    h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
-      letter-spacing: 2px;
-      font-weight: 700;
-    }
+.screen{
+  width:100%;
+  max-width:430px;
+  background:rgba(17,22,29,.92);
+  border:1px solid rgba(216,208,194,.16);
+  padding:28px;
+  box-shadow:0 0 50px rgba(0,0,0,.75), inset 0 0 20px rgba(255,255,255,.02);
+  position:relative;
+}
 
-    .meta {
-      color: #a9a396;
-      font-size: 13px;
-      line-height: 1.7;
-      border-top: 1px solid rgba(232,225,213,0.12);
-      border-bottom: 1px solid rgba(232,225,213,0.12);
-      padding: 14px 0;
-      margin: 18px 0 24px;
-    }
+.label{
+  color:var(--amber);
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
 
-    .status {
-      color: var(--amber);
-    }
+h1{
+  margin:0 0 10px;
+  font-size:30px;
+  letter-spacing:3px;
+}
 
-    .input-title {
-      font-size: 13px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+p{
+  color:#b9b0a3;
+  font-size:14px;
+  line-height:1.6;
+}
 
-    input {
-      width: 100%;
-      padding: 15px;
-      background: #0A0E14;
-      border: 1px solid rgba(232,225,213,0.25);
-      color: var(--paper);
-      font-size: 22px;
-      letter-spacing: 6px;
-      text-align: center;
-      outline: none;
-    }
+input{
+  width:100%;
+  background:#0b1016;
+  border:1px solid var(--line);
+  color:var(--paper);
+  padding:15px;
+  margin-top:12px;
+  font-size:16px;
+  outline:none;
+}
 
-    input:focus {
-      border-color: var(--amber);
-    }
+input:focus{
+  border-color:var(--amber);
+}
 
-    button {
-      width: 100%;
-      margin-top: 14px;
-      padding: 15px;
-      border: none;
-      background: var(--amber);
-      color: #111;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
+button{
+  width:100%;
+  margin-top:14px;
+  padding:15px;
+  border:none;
+  background:var(--amber);
+  color:#111;
+  font-weight:bold;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+}
 
-    button:active {
-      transform: scale(0.99);
-    }
+button:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
 
-    .message {
-      min-height: 24px;
-      margin-top: 16px;
-      font-size: 13px;
-      color: #a9a396;
-    }
+.hidden{
+  display:none;
+}
 
-    .error {
-      color: var(--red);
-    }
+.meta{
+  margin:18px 0;
+  padding:14px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  color:var(--metal);
+  font-size:13px;
+  line-height:1.8;
+}
 
-    .success {
-      color: var(--amber);
-    }
+.rules{
+  font-size:13px;
+  line-height:1.6;
+  color:#c9c0b2;
+  padding-left:18px;
+}
 
-    .case-card {
-      display: none;
-      animation: fadeIn 0.7s ease forwards;
-    }
+.check{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin-top:18px;
+  color:#b9b0a3;
+  font-size:13px;
+  line-height:1.4;
+}
 
-    .case-line {
-      margin: 12px 0;
-      font-size: 14px;
-      color: #cfc6b8;
-    }
+.check input{
+  width:auto;
+  margin-top:2px;
+}
 
-    .case-line span {
-      display: block;
-      color: var(--metal);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 4px;
-    }
+.message{
+  margin-top:14px;
+  min-height:20px;
+  font-size:12px;
+  color:var(--metal);
+}
 
-    .small {
-      margin-top: 24px;
-      font-size: 11px;
-      color: #777;
-      line-height: 1.5;
-    }
+.error{
+  color:var(--danger);
+}
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.success{
+  color:var(--amber);
+}
 
-    .scanline {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(
-        rgba(255,255,255,0.025) 50%,
-        rgba(0,0,0,0.025) 50%
-      );
-      background-size: 100% 4px;
-      opacity: 0.35;
-    }
-  </style>
+.small{
+  margin-top:20px;
+  font-size:11px;
+  color:#6e757d;
+  line-height:1.5;
+}
+</style>
 </head>
 
 <body>
-  <div class="scanline"></div>
 
-  <main class="screen">
-    <div id="login">
-      <div class="label">fragmented archive</div>
+<main class="screen">
 
-      <h1>АРХИВ E38</h1>
+  <!-- РЕГИСТРАЦИЯ -->
+  <section id="registration">
+    <div class="label">project phoenix</div>
+    <h1>РЕГИСТРАЦИЯ</h1>
 
-      <div class="meta">
-        Версия архива: 5.1<br>
-        Статус: <span class="status">ФРАГМЕНТИРОВАН</span><br>
-        Восстановлено: 12%
-      </div>
+    <p>
+      Укажите данные команды для участия в квесте.
+    </p>
 
-      <div class="input-title">Enter code</div>
+    <input id="teamName" type="text" placeholder="Название команды">
+    <input id="captainPhone" type="tel" placeholder="Телефон капитана">
 
-      <input
-        id="code"
-        type="password"
-        inputmode="numeric"
-        maxlength="4"
-        placeholder="••••"
-      />
+    <button onclick="registerTeam()">Продолжить</button>
 
-      <button onclick="checkCode()">Получить доступ</button>
+    <div id="regMessage" class="message"></div>
+  </section>
 
-      <div id="message" class="message">
-        Некоторые файлы могут быть повреждены.
-      </div>
+  <!-- ПРАВИЛА -->
+  <section id="rules" class="hidden">
+    <div class="label">safety protocol</div>
+    <h1>ПРАВИЛА</h1>
+
+    <ol class="rules">
+      <li>Не забирайте, не прячьте, не портите и не перемещайте реквизит.</li>
+      <li>Берите только то, что прямо предназначено для вашей команды.</li>
+      <li>Запрещено заводить, двигать, разбирать автомобиль или садиться за руль.</li>
+      <li>Не передавайте ответы, коды и координаты другим командам.</li>
+      <li>Не мешайте другим участникам проходить локации.</li>
+      <li>Соблюдайте ПДД и не заезжайте на закрытые территории.</li>
+      <li>При проблемах с реквизитом или локацией свяжитесь с организатором.</li>
+      <li>За нарушение правил команда может получить штраф или быть снята с игры.</li>
+    </ol>
+
+    <label class="check">
+      <input id="rulesCheck" type="checkbox" onchange="toggleRulesButton()">
+      <span>Я ознакомлен(а) с правилами и принимаю ответственность за действия команды.</span>
+    </label>
+
+    <button id="rulesButton" onclick="showIntro()" disabled>Продолжить</button>
+  </section>
+
+  <!-- ТИЗЕР -->
+  <section id="intro" class="hidden">
+    <div class="label">restored fragment</div>
+    <h1>ДОСТУП ОГРАНИЧЕН</h1>
+
+    <div class="meta">
+      Архив: частично восстановлен<br>
+      Статус: не закрыто<br>
+      Материалы: повреждены
     </div>
 
-    <section id="caseCard" class="case-card">
-      <div class="label">access granted</div>
+    <p>
+      14 октября были обнаружены материалы, связанные с исчезновением Сергея Морозова.
+    </p>
 
-      <h1>ДЕЛО № E38-2025</h1>
+    <p>
+      Часть архива удалось восстановить. Некоторые документы повреждены или отсутствуют.
+    </p>
 
-      <div class="case-line">
-        <span>Статус</span>
-        Не закрыто
-      </div>
+    <p>
+      Ваша задача — установить последовательность событий и определить, что произошло.
+    </p>
 
-      <div class="case-line">
-        <span>Объект</span>
-        Сергей Морозов
-      </div>
+    <button onclick="showArchive()">Получить доступ к архиву</button>
+  </section>
 
-      <div class="case-line">
-        <span>Автомобиль</span>
-        BMW E38
-      </div>
+  <!-- АРХИВ -->
+  <section id="archive" class="hidden">
+    <div class="label">fragmented archive</div>
 
-      <div class="case-line">
-        <span>Последняя активность</span>
-        14.10.2025
-      </div>
+    <h1>АРХИВ</h1>
 
-      <div class="case-line">
-        <span>Местонахождение</span>
-        Неизвестно
-      </div>
+    <div class="meta">
+      Версия архива: 5.1<br>
+      Статус: <span style="color:var(--amber)">ФРАГМЕНТИРОВАН</span><br>
+      Восстановлено: 12%
+    </div>
 
-      <button onclick="openMaterials()">Открыть материалы</button>
+    <p>
+      Материалы доступны для первичного анализа.
+    </p>
 
-      <div class="small">
-        Доступ восстановлен частично. Часть файлов повреждена или отсутствует.
-      </div>
-    </section>
-  </main>
+    <button onclick="openMaterials()">Открыть материалы</button>
 
-  <script>
-    const CORRECT_CODE = "3840";
+    <div class="small">
+      Некоторые файлы могут быть повреждены.
+    </div>
+  </section>
 
-    function checkCode() {
-      const input = document.getElementById("code");
-      const message = document.getElementById("message");
-      const code = input.value.trim();
+</main>
 
-      if (code === CORRECT_CODE) {
-        message.className = "message success";
-        message.textContent = "КОД ПРИНЯТ. ВОССТАНОВЛЕНИЕ АРХИВА...";
+<script>
+const FORM_URL =
+"https://docs.google.com/forms/d/e/1FAIpQLSefX88EGCkbJzbBggv4eD6ah2nmo_7JOlBbwh2YAp9AZ8OIeA/formResponse";
 
-        setTimeout(() => {
-          document.getElementById("login").style.display = "none";
-          document.getElementById("caseCard").style.display = "block";
-        }, 1200);
-      } else {
-        message.className = "message error";
-        message.textContent = "ОШИБКА: НЕВЕРНЫЙ КОД ДОСТУПА.";
-      }
-    }
+const TEAM_ENTRY = "entry.2022332287";
+const PHONE_ENTRY = "entry.827847140";
 
-    function openMaterials() {
-      window.location.href = "materials.html";
-    }
+function sendToGoogle(team, phone){
+  const data = new FormData();
+  data.append(TEAM_ENTRY, team);
+  data.append(PHONE_ENTRY, phone);
 
-    document.getElementById("code").addEventListener("keydown", function(e) {
-      if (e.key === "Enter") {
-        checkCode();
-      }
-    });
-  </script>
+  fetch(FORM_URL, {
+    method: "POST",
+    mode: "no-cors",
+    body: data
+  });
+}
+
+function registerTeam(){
+  const team = document.getElementById("teamName").value.trim();
+  const phone = document.getElementById("captainPhone").value.trim();
+  const msg = document.getElementById("regMessage");
+
+  if(!team || !phone){
+    msg.className = "message error";
+    msg.textContent = "Заполните название команды и телефон капитана.";
+    return;
+  }
+
+  localStorage.setItem("teamName", team);
+  localStorage.setItem("captainPhone", phone);
+
+  sendToGoogle(team, phone);
+
+  msg.className = "message success";
+  msg.textContent = "Команда зарегистрирована.";
+
+  setTimeout(() => {
+    document.getElementById("registration").classList.add("hidden");
+    document.getElementById("rules").classList.remove("hidden");
+  }, 700);
+}
+
+function toggleRulesButton(){
+  const checked = document.getElementById("rulesCheck").checked;
+  document.getElementById("rulesButton").disabled = !checked;
+}
+
+function showIntro(){
+  document.getElementById("rules").classList.add("hidden");
+  document.getElementById("intro").classList.remove("hidden");
+}
+
+function showArchive(){
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("archive").classList.remove("hidden");
+}
+
+function openMaterials(){
+  window.location.href = "materials.html";
+}
+</script>
+
 </body>
 </html>
