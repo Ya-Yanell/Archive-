@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Материалы</title>
+
+<style>
+:root{
+  --bg:#090c11;
+  --panel:#11161d;
+  --paper:#d8d0c2;
+  --amber:#a9823d;
+  --line:#2a3440;
+  --metal:#7f868c;
+  --danger:#8d4b4b;
+  --success:#8fa66a;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top, rgba(35,48,69,.5), transparent 40%),
+    linear-gradient(180deg,#0d1117 0%,#090c11 100%);
+  color:var(--paper);
+  font-family:"Courier New", monospace;
+  padding:20px;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.03) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  opacity:.2;
+  pointer-events:none;
+}
+
+.wrap{
+  width:100%;
+  max-width:520px;
+  margin:0 auto;
+  padding-bottom:90px;
+}
+
+.card,
+.file,
+.verify{
+  background:rgba(17,22,29,.92);
+  border:1px solid rgba(216,208,194,.16);
+  box-shadow:0 0 35px rgba(0,0,0,.55);
+  margin-bottom:18px;
+}
+
+.card{
+  padding:22px;
+}
+
+.label{
+  color:var(--amber);
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+h1{
+  margin:0 0 10px;
+  font-size:28px;
+  letter-spacing:3px;
+}
+
+p{
+  color:#b9b0a3;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.meta{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  color:var(--metal);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.note{
+  border-left:3px solid var(--amber);
+  padding-left:12px;
+  margin-top:14px;
+  color:#a9a396;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.file{
+  overflow:hidden;
+}
+
+.file img{
+  width:100%;
+  display:block;
+  filter:contrast(.9) saturate(.75) brightness(.82);
+}
+
+.file-body{
+  padding:15px;
+}
+
+.file-title{
+  color:var(--amber);
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+
+.file-name{
+  color:var(--paper);
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.file-status{
+  color:var(--metal);
+  font-size:12px;
+}
+
+.verify{
+  padding:22px;
+}
+
+.verify input{
+  width:100%;
+  background:#0b1016;
+  border:1px solid var(--line);
+  color:var(--paper);
+  padding:14px;
+  margin:10px 0 14px;
+  font-size:18px;
+  letter-spacing:3px;
+  outline:none;
+  font-family:"Courier New", monospace;
+}
+
+.verify input:focus{
+  border-color:var(--amber);
+}
+
+.pattern{
+  color:var(--metal);
+  font-size:12px;
+  margin-top:-8px;
+  margin-bottom:12px;
+}
+
+button{
+  width:100%;
+  margin-top:10px;
+  padding:15px;
+  border:none;
+  background:var(--amber);
+  color:#111;
+  font-weight:bold;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+  font-family:"Courier New", monospace;
+}
+
+.help{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:auto;
+  padding:13px 16px;
+  background:var(--danger);
+  color:#fff;
+  z-index:5;
+}
+
+.message{
+  margin-top:14px;
+  min-height:22px;
+  font-size:13px;
+  color:var(--metal);
+  line-height:1.5;
+}
+.next-task{
+  margin-top:22px;
+  padding:18px;
+  border:1px solid rgba(169,130,61,.55);
+  background:rgba(9,12,17,.65);
+  box-shadow:inset 0 0 18px rgba(169,130,61,.06);
+}
+.error{color:var(--danger)}
+.success{color:var(--success)}
+</style>
+</head>
+
+<body>
+
+<main class="wrap">
+
+  <section class="card">
+    <div class="label">restored files</div>
+    <h1>МАТЕРИАЛЫ</h1>
+
+    <p>
+      Доступны восстановленные фрагменты архива.
+    </p>
+
+    <div class="meta">
+      Статус: частично восстановлено<br>
+      Доступно файлов: 8<br>
+      Последовательность: сохранена
+    </div>
+
+    <div class="note">
+      Некоторые материалы могут содержать данные, необходимые для продолжения.
+    </div>
+  </section>
+
+  <section class="file">
+    <img src="PHOTO_01.jpg" alt="PHOTO_01">
+    <div class="file-body">
+      <div class="file-title">Файл 01</div>
+      <div class="file-name">PHOTO_01.jpg</div>
+      <div class="file-status">Восстановлено полностью</div>
+    </div>
+  </section>
+
+  <section class="file">
+    <img src="PHOTO_02.jpg" alt="PHOTO_02">
+    <div class="file-body">
+      <div class="file-title">Файл 02</div>
+      <div class="file-name">PHOTO_02.jpg</div>
+      <div class="file-status">Восстановлено полностью</div>
+    </div>
+  </section>
+
+  <section class="file">
+    <img src="PHOTO_03.jpg" alt="PHOTO_03">
+    <div class="file-body">
+      <div class="file-title">Файл 03</div>
+      <div class="file-name">PHOTO_03.jpg</div>
+      <div class="file-status">Повреждение изображения: 2%</div>
+    </div>
+  </section>
+
+  <section class="file">
+    <img src="PHOTO_04.jpg" alt="PHOTO_04">
+    <div class="file-body">
+      <div class="file-title">Файл 04</div>
+      <div class="file-name">PHOTO_04.jpg</div>
+      <div class="file-status">Повреждение изображения: 3%</div>
+    </div>
+  </section>
+
+  <section class="file">
+    <img src="PHOTO_05.jpg" alt="PHOTO_05">
+    <div class="file-body">
+      <div class="file-title">Файл 05</div>
+      <div class="file-name">PHOTO_05.jpg</div>
+      <div class="file-status">Восстановлено полностью</div>
+    </div>
+  </section>
+
+  <section class="file">
+    <img src="PHOTO_06.jpg" alt="PHOTO_06">
+    <div class="file-body">
+      <div class="file-title">Файл 06</div>
+      <div class="file-name">PHOTO_06.jpg</div>
+      <div class="file-status">Фрагмент документа</div>
+    </div>
+  </section>
+
+  <section class="file">
+    <img src="PHOTO_07.jpg" alt="PHOTO_07">
+    <div class="file-body">
+      <div class="file-title">Файл 07</div>
+      <div class="file-name">PHOTO_07.jpg</div>
+      <div class="file-status">Фрагмент документа</div>
+    </div>
+  </section>
+
+  <section class="file">
+    <img src="PHOTO_08.jpg" alt="PHOTO_08">
+    <div class="file-body">
+      <div class="file-title">Файл 08</div>
+      <div class="file-name">PHOTO_08.jpg</div>
+      <div class="file-status">Восстановлено частично</div>
+    </div>
+  </section>
+
+  <section class="verify">
+    <div class="label">data verification</div>
+    <h1>АНАЛИЗ</h1>
+
+    <p>
+      Часть данных удалось восстановить. Для продолжения необходимо подтвердить найденную информацию.
+    </p>
+
+    <label>Данные 01</label>
+    <input id="data01" type="text" maxlength="9" placeholder="__.__ ____">
+    <div class="pattern">Формат: __.______</div>
+
+    <label>Данные 02</label>
+    <input id="data02" type="text" maxlength="9" placeholder="__.__ ____">
+    <div class="pattern">Формат: __.______</div>
+
+   <button onclick="verifyData()">Подтвердить</button>
+
+<div id="verifyMessage" class="message"></div>
+
+<div id="nextTask" class="next-task hidden">
+  <div class="label">field response</div>
+
+  <p>
+    Ответ с локации
+  </p>
+
+  <input id="fieldAnswer" type="text" placeholder="Введите ответ">
+
+  <button onclick="checkFieldAnswer()">Отправить ответ</button>
+
+  <div id="fieldMessage" class="message"></div>
+</div>
+
+</section>
+
+</main>
+
+<button class="help" onclick="requestHelp()">Помощь</button>
+
+<script>
+const ORGANIZER_PHONE = "+79891302318";
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbzwtBCE16tLc-E0303pKpkXel4uKSItdD0KoY-3bNPNVvxwiPRelNOBBZyU1mBE_Z1scA/exec";
+
+function requestHelp(){
+  const team = localStorage.getItem("teamName") || "Команда не указана";
+  const phone = localStorage.getItem("captainPhone") || "";
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      team: team,
+      phone: phone,
+      action: "hint",
+      stage: "Материалы",
+      code: ""
+    })
+  });
+
+  window.location.href = "tel:" + ORGANIZER_PHONE;
+}
+
+function verifyData(){
+  const d1 = document.getElementById("data01").value.trim();
+  const d2 = document.getElementById("data02").value.trim();
+  const msg = document.getElementById("verifyMessage");
+
+if(d1 === "43.732489" && d2 === "44.688291"){
+  msg.className = "message success";
+  msg.innerHTML =
+    "СОВПАДЕНИЕ ПОДТВЕРЖДЕНО.<br><br>" +
+    "Фрагменты сложились в точку, которой не должно было быть в архиве.<br><br>" +
+    "Отправляйтесь туда. Осмотрите место внимательно. Не забирайте лишнего. Не оставляйте следов.<br><br>" +
+    "Если найдёте то, что было оставлено после него, вернитесь сюда и введите ответ ниже.";
+
+  document.getElementById("nextTask").classList.remove("hidden");
+
+} else {
+    msg.className = "message error";
+    msg.textContent = "Данные не совпадают с восстановленными материалами.";
+  }
+}
+  function checkFieldAnswer(){
+  const answer = document.getElementById("fieldAnswer").value.trim().toLowerCase();
+  const msg = document.getElementById("fieldMessage");
+
+  if(answer === "3840"){
+    msg.className = "message success";
+    msg.innerHTML =
+      "ОТВЕТ ПРИНЯТ.<br><br>" +
+      "Архивный уровень разблокирован.";
+
+    setTimeout(() => {
+      window.location.href = "archive1.html";
+    }, 1200);
+
+  } else {
+    msg.className = "message error";
+    msg.textContent =
+      "Ответ не совпадает с материалами, найденными на месте.";
+  }
+}
+</script>
+
+</body>
+</html>
