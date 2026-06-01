@@ -488,10 +488,21 @@ document.querySelectorAll(".digit").forEach((input, index, all) => {
 });
 
 function getDataValue(rowSelector){
-  const row = document.querySelector(`[data-target="${rowSelector}"]`);
-  const nums = Array.from(row.querySelectorAll(".digit")).map(i => i.value).join("");
-  if(nums.length !== 8) return "";
-  return nums.slice(0,2) + "." + nums.slice(2);
+  const row = document.querySelector('[data-target="' + rowSelector + '"]');
+
+  if(!row){
+    return "";
+  }
+
+  const nums = Array.from(row.querySelectorAll(".digit"))
+    .map(input => input.value.trim())
+    .join("");
+
+  if(nums.length !== 8){
+    return "";
+  }
+
+  return nums.substring(0, 2) + "." + nums.substring(2);
 }
 
 function openHelp(){
