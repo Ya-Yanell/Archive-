@@ -7,8 +7,6 @@
 
 <style>
 :root{
-  --bg:#050505;
-  --panel:#0b0b0a;
   --paper:#d6cbbb;
   --amber:#a9823d;
   --line:#2b2924;
@@ -52,14 +50,14 @@ body::before{
   z-index:2;
 }
 
-.card,.file,.verify{
+.card,.file,.verify,.hint-box{
   background:linear-gradient(180deg, rgba(15,15,13,.96), rgba(7,7,6,.96));
   border:1px solid rgba(214,203,187,.14);
   box-shadow:0 0 35px rgba(0,0,0,.65), inset 0 0 28px rgba(214,203,187,.025);
   margin-bottom:18px;
 }
 
-.card,.verify{padding:22px}
+.card,.verify,.hint-box{padding:22px}
 
 .label{
   color:var(--amber);
@@ -67,6 +65,7 @@ body::before{
   letter-spacing:3px;
   text-transform:uppercase;
   margin-bottom:12px;
+  animation:textNoise 5s infinite;
 }
 
 h1{
@@ -117,7 +116,6 @@ p{
   letter-spacing:2px;
   text-transform:uppercase;
   margin-bottom:6px;
-  animation:textNoise 5s infinite;
 }
 
 .file-name{
@@ -133,7 +131,7 @@ p{
 
 .digit-row{
   display:grid;
-  grid-template-columns: 1fr 1fr 14px 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns:1fr 1fr 14px 1fr 1fr 1fr 1fr 1fr 1fr;
   gap:5px;
   margin:12px 0 18px;
   align-items:center;
@@ -181,15 +179,15 @@ button{
   font-family:"Courier New", monospace;
 }
 
-.help{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  width:auto;
-  padding:13px 16px;
-  background:var(--danger);
-  color:#fff;
-  z-index:10;
+.hint-buttons{
+  display:grid;
+  gap:8px;
+}
+
+.hint-buttons button{
+  background:#17130d;
+  color:var(--paper);
+  border:1px solid rgba(169,130,61,.45);
 }
 
 .message{
@@ -216,23 +214,11 @@ button{
 
 .modal-card{
   width:100%;
-  max-width:380px;
+  max-width:390px;
   background:#0b0b0a;
   border:1px solid rgba(216,208,194,.22);
   padding:24px;
   box-shadow:0 0 40px rgba(0,0,0,.85);
-}
-
-.modal a{
-  display:block;
-  text-align:center;
-  background:var(--danger);
-  color:white;
-  text-decoration:none;
-  padding:14px;
-  margin-top:14px;
-  font-weight:bold;
-  letter-spacing:2px;
 }
 
 .photo-modal img{
@@ -263,27 +249,33 @@ button{
 <main class="wrap">
 
 <section class="card">
-  <div class="label">case fragment</div>
+  <div class="label">архивный фрагмент</div>
   <h1>МАТЕРИАЛЫ</h1>
 
   <p>
-    14 октября был обнаружен автомобиль, числящийся в архивных материалах дела.
+    Автомобиль нашли не сразу. Несколько дней он стоял там, где ему не место.
+    Двери были закрыты, следов аварии не было.
   </p>
 
   <p>
-    Машина находилась без владельца. Часть документов была повреждена, часть — отсутствовала.
-    Восстановленные файлы ниже могут содержать данные, необходимые для дальнейшего движения.
+    Внутри обнаружили старые бумаги, фотографии и несколько повреждённых записей.
+    Владелец не выходил на связь. Последние данные по делу обрываются на этом архиве.
+  </p>
+
+  <p>
+    Большая часть материалов выглядит случайной. Но если смотреть внимательно,
+    некоторые детали начинают повторяться.
   </p>
 
   <div class="meta">
     Объект: BMW E38<br>
-    Статус: не закрыто<br>
-    Доступно файлов: 8<br>
+    Статус дела: не закрыто<br>
+    Восстановлено файлов: 8<br>
     Последовательность: сохранена
   </div>
 
   <div class="note">
-    Изучайте материалы в порядке восстановления. Не все файлы содержат полезные данные.
+    Просматривайте файлы по порядку. Не все изображения важны, но лишних совпадений здесь нет.
   </div>
 </section>
 
@@ -332,17 +324,28 @@ button{
   <div id="verifyMessage" class="message"></div>
 </section>
 
+<section class="hint-box">
+  <div class="label">assistance protocol</div>
+  <h1>ПОДСКАЗКИ</h1>
+  <p>Использование подсказки будет зафиксировано. Чем глубже подсказка, тем больше она влияет на результат.</p>
+
+  <div class="hint-buttons">
+    <button onclick="confirmHint('hint_1')">Подсказка I</button>
+    <button onclick="confirmHint('hint_2')">Подсказка II</button>
+    <button onclick="confirmHint('hint_3')">Подсказка III</button>
+  </div>
+</section>
+
 </main>
 
-<button class="help" onclick="openHelp()">Помощь</button>
-
-<div id="helpModal" class="modal">
+<div id="hintModal" class="modal">
   <div class="modal-card">
-    <div class="label">emergency channel</div>
-    <h1>ПОМОЩЬ</h1>
-    <p>Если вы застряли или на локации возникла проблема, свяжитесь с организатором.</p>
-    <a href="tel:+79891302318">ПОЗВОНИТЬ</a>
-    <button onclick="closeHelp()">Закрыть</button>
+    <div class="label">hint request</div>
+    <h1>ПОДСКАЗКА</h1>
+    <p id="hintConfirmText">Вы уверены?</p>
+    <button onclick="getHint()">Получить подсказку</button>
+    <button onclick="closeHint()">Отмена</button>
+    <div id="hintText" class="message"></div>
   </div>
 </div>
 
@@ -354,6 +357,8 @@ button{
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbwdYKJpRrNsqkqfBuIC3r7UQFvPxlPNVL7rX_N72ElTixqZtlZHbvbytThkbvBk-qDVcQ/exec";
 
+let selectedHint = "";
+
 document.querySelectorAll(".digit").forEach((input, index, all) => {
   input.addEventListener("input", () => {
     input.value = input.value.replace(/\D/g, "");
@@ -361,27 +366,19 @@ document.querySelectorAll(".digit").forEach((input, index, all) => {
   });
 
   input.addEventListener("keydown", (e) => {
-    if(e.key === "Backspace" && !input.value && all[index - 1]) {
-      all[index - 1].focus();
-    }
+    if(e.key === "Backspace" && !input.value && all[index - 1]) all[index - 1].focus();
   });
 });
 
 function getDataValue(rowSelector){
   const row = document.querySelector('[data-target="' + rowSelector + '"]');
-
-  if(!row){
-    return "";
-  }
+  if(!row) return "";
 
   const nums = Array.from(row.querySelectorAll(".digit"))
     .map(input => input.value.trim())
     .join("");
 
-  if(nums.length !== 8){
-    return "";
-  }
-
+  if(nums.length !== 8) return "";
   return nums.substring(0, 2) + "." + nums.substring(2);
 }
 
@@ -402,23 +399,6 @@ function callScript(params, callback){
   document.body.appendChild(script);
 }
 
-function openHelp(){
-  callScript({
-    action:"hint",
-    team:localStorage.getItem("teamName") || "Команда не указана",
-    phone:localStorage.getItem("captainPhone") || "",
-    stage:"Материалы",
-    details:"Открыто окно помощи",
-    hint:"help"
-  }, function(){});
-
-  document.getElementById("helpModal").style.display = "flex";
-}
-
-function closeHelp(){
-  document.getElementById("helpModal").style.display = "none";
-}
-
 function openPhoto(src){
   document.getElementById("modalImage").src = src;
   document.getElementById("photoModal").style.display = "flex";
@@ -426,6 +406,38 @@ function openPhoto(src){
 
 function closePhoto(){
   document.getElementById("photoModal").style.display = "none";
+}
+
+function confirmHint(level){
+  selectedHint = level;
+
+  let text = "Использование подсказки будет зафиксировано.";
+  if(level === "hint_2") text = "Это более подробная подсказка. Использование будет зафиксировано.";
+  if(level === "hint_3") text = "Эта подсказка содержит ответ. Использование будет зафиксировано.";
+
+  document.getElementById("hintConfirmText").textContent = text;
+  document.getElementById("hintText").textContent = "";
+  document.getElementById("hintModal").style.display = "flex";
+}
+
+function closeHint(){
+  document.getElementById("hintModal").style.display = "none";
+}
+
+function getHint(){
+  document.getElementById("hintText").textContent = "Загрузка подсказки...";
+
+  callScript({
+    action:"hint",
+    stage:"materials",
+    team:localStorage.getItem("teamName") || "Команда не указана",
+    phone:localStorage.getItem("captainPhone") || "",
+    hint:selectedHint
+  }, function(result){
+    document.getElementById("hintText").className = "message success";
+    document.getElementById("hintText").textContent =
+      result && result.text ? result.text : "Подсказка недоступна.";
+  });
 }
 
 function verifyData(){
