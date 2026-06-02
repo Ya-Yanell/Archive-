@@ -8,11 +8,11 @@
 
 <style>
 :root{
-  --bg:#090c11;
-  --panel:#11161d;
+  --bg:#050505;
+  --panel:#0b0b0a;
   --paper:#d8d0c2;
   --amber:#a9823d;
-  --line:#2a3440;
+  --line:#2b2924;
   --metal:#7f868c;
   --danger:#8d4b4b;
 }
@@ -23,8 +23,8 @@ body{
   margin:0;
   min-height:100vh;
   background:
-    radial-gradient(circle at top, rgba(35,48,69,.5), transparent 40%),
-    linear-gradient(180deg,#0d1117 0%,#090c11 100%);
+    radial-gradient(circle at top, rgba(130,105,70,.12), transparent 38%),
+    linear-gradient(180deg,#080806 0%,#010101 100%);
   color:var(--paper);
   font-family:"Courier New", monospace;
   display:flex;
@@ -33,29 +33,28 @@ body{
   padding:20px;
 }
 
-body::after{
+body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:repeating-linear-gradient(
-    0deg,
-    rgba(255,255,255,.03),
-    rgba(255,255,255,.03) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-  opacity:.2;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.04' numOctaves='5'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 20% 30%, rgba(216,208,194,.035), transparent 20%),
+    radial-gradient(circle at 75% 70%, rgba(216,208,194,.025), transparent 24%);
+  opacity:.34;
   pointer-events:none;
+  z-index:0;
 }
 
 .screen{
   width:100%;
   max-width:430px;
-  background:rgba(17,22,29,.92);
+  background:linear-gradient(180deg, rgba(15,14,12,.96), rgba(5,5,4,.96));
   border:1px solid rgba(216,208,194,.16);
   padding:28px;
-  box-shadow:0 0 50px rgba(0,0,0,.75), inset 0 0 20px rgba(255,255,255,.02);
+  box-shadow:0 0 55px rgba(0,0,0,.85), inset 0 0 28px rgba(216,208,194,.025);
   position:relative;
+  z-index:2;
 }
 
 .label{
@@ -64,29 +63,35 @@ body::after{
   letter-spacing:3px;
   text-transform:uppercase;
   margin-bottom:16px;
+  font-weight:bold;
+  animation:glitchText 6s infinite;
 }
 
 h1{
   margin:0 0 10px;
   font-size:30px;
-  letter-spacing:3px;
+  letter-spacing:3.5px;
+  font-weight:900;
+  animation:glitchText 5s infinite;
 }
 
 p{
   color:#b9b0a3;
   font-size:14px;
   line-height:1.6;
+  font-weight:500;
 }
 
 input{
   width:100%;
-  background:#0b1016;
+  background:#070707;
   border:1px solid var(--line);
   color:var(--paper);
   padding:15px;
   margin-top:12px;
   font-size:16px;
   outline:none;
+  font-family:"Courier New", monospace;
 }
 
 input:focus{
@@ -100,10 +105,12 @@ button{
   border:none;
   background:var(--amber);
   color:#111;
-  font-weight:bold;
+  font-weight:900;
   letter-spacing:2px;
   text-transform:uppercase;
   cursor:pointer;
+  font-family:"Courier New", monospace;
+  box-shadow:0 0 18px rgba(169,130,61,.16);
 }
 
 button:disabled{
@@ -154,19 +161,32 @@ button:disabled{
   color:var(--metal);
 }
 
-.error{
-  color:var(--danger);
+.error{color:var(--danger)}
+.success{color:var(--amber)}
+
+.typewriter p{
+  opacity:0;
+  animation:typeIn .8s forwards;
 }
 
-.success{
-  color:var(--amber);
+.typewriter p:nth-of-type(1){animation-delay:.1s}
+.typewriter p:nth-of-type(2){animation-delay:.45s}
+.typewriter p:nth-of-type(3){animation-delay:.8s}
+.typewriter p:nth-of-type(4){animation-delay:1.15s}
+.typewriter p:nth-of-type(5){animation-delay:1.5s}
+.typewriter p:nth-of-type(6){animation-delay:1.85s}
+
+@keyframes typeIn{
+  from{opacity:0; transform:translateY(6px); filter:blur(2px)}
+  to{opacity:1; transform:translateY(0); filter:blur(0)}
 }
 
-.small{
-  margin-top:20px;
-  font-size:11px;
-  color:#6e757d;
-  line-height:1.5;
+@keyframes glitchText{
+  0%, 86%, 100%{opacity:1; transform:none; text-shadow:none}
+  87%{opacity:.35; transform:translateX(1px); text-shadow:2px 0 rgba(169,130,61,.55)}
+  88%{opacity:.9; transform:translateX(-1px)}
+  89%{opacity:.2}
+  90%{opacity:1; transform:none}
 }
 </style>
 </head>
@@ -175,24 +195,25 @@ button:disabled{
 
 <main class="screen">
 
-  <!-- РЕГИСТРАЦИЯ -->
   <section id="registration">
     <div class="label">project phoenix</div>
     <h1>РЕГИСТРАЦИЯ</h1>
 
-    <p>
-      Укажите данные команды для участия в квесте.
-    </p>
+    <p>Укажите данные команды для участия в квесте.</p>
 
     <input id="teamName" type="text" placeholder="Название команды">
-    <input id="captainPhone" type="tel" placeholder="Телефон капитана">
+
+    <input
+      id="captainPhone"
+      type="tel"
+      placeholder="+7(___)___-__-__"
+      maxlength="16">
 
     <button onclick="registerTeam()">Продолжить</button>
 
     <div id="regMessage" class="message"></div>
   </section>
 
-  <!-- ПРАВИЛА -->
   <section id="rules" class="hidden">
     <div class="label">safety protocol</div>
     <h1>ПРАВИЛА</h1>
@@ -216,68 +237,34 @@ button:disabled{
     <button id="rulesButton" onclick="showIntro()" disabled>Продолжить</button>
   </section>
 
-  <!-- ТИЗЕР -->
- <section id="intro" class="hidden">
-  <div class="label">restored fragment</div>
-  <h1>ДОСТУП ОГРАНИЧЕН</h1>
-
-  <div class="meta">
-    Архив: частично восстановлен<br>
-    Статус: не закрыто<br>
-    Материалы: повреждены
-  </div>
-
-  <p>
-    Иногда самые странные истории начинаются с вещей, которые невозможно объяснить.
-  </p>
-
-  <p>
-    Случайная находка.<br>
-    Старые записи.<br>
-    Забытые документы.<br>
-    Совпадения, которых не должно быть.
-  </p>
-
-  <p>
-    Вам предстоит пройти путь, который до вас уже пытались пройти другие.
-  </p>
-
-  <p>
-    Восстановите утраченные фрагменты, сопоставьте факты и выясните, что скрывается за этой историей.
-  </p>
-
-  <p>
-    Главное — не торопитесь с выводами.
-  </p>
-
-  <p>
-    Всё не так просто, как кажется.
-  </p>
-
-  <button onclick="showArchive()">Получить доступ к архиву</button>
-</section>
-
-  <!-- АРХИВ -->
-  <section id="archive" class="hidden">
-    <div class="label">fragmented archive</div>
-
-    <h1>АРХИВ</h1>
+  <section id="intro" class="hidden typewriter">
+    <div class="label">restored fragment</div>
+    <h1>ДОСТУП ОГРАНИЧЕН</h1>
 
     <div class="meta">
-      Версия архива: 5.1<br>
-      Статус: <span style="color:var(--amber)">ФРАГМЕНТИРОВАН</span><br>
-      Восстановлено: 12%
+      Архив: частично восстановлен<br>
+      Статус: не закрыто<br>
+      Материалы: повреждены
     </div>
+
+    <p>Иногда самые странные истории начинаются с вещей, которые невозможно объяснить.</p>
 
     <p>
-      Материалы доступны для первичного анализа.
+      Случайная находка.<br>
+      Старые записи.<br>
+      Забытые документы.<br>
+      Совпадения, которых не должно быть.
     </p>
 
-    <button onclick="openMaterials()">Открыть материалы</button>
+    <p>Вам предстоит пройти путь, который до вас уже пытались пройти другие.</p>
 
-    <div class="small">
-      Некоторые файлы могут быть повреждены.
-    </div>
+    <p>Восстановите утраченные фрагменты, сопоставьте факты и выясните, что скрывается за этой историей.</p>
+
+    <p>Главное — не торопитесь с выводами.</p>
+
+    <p>Всё не так просто, как кажется.</p>
+
+    <button onclick="openMaterials()">Получить доступ к материалам</button>
   </section>
 
 </main>
@@ -289,6 +276,49 @@ const FORM_URL =
 const TEAM_ENTRY = "entry.2022332287";
 const PHONE_ENTRY = "entry.827847140";
 
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbwdYKJpRrNsqkqfBuIC3r7UQFvPxlPNVL7rX_N72ElTixqZtlZHbvbytThkbvBk-qDVcQ/exec";
+
+const phoneInput = document.getElementById("captainPhone");
+
+phoneInput.addEventListener("input", function(e){
+  let x = e.target.value.replace(/\D/g, "");
+
+  if(x.startsWith("8")){
+    x = "7" + x.slice(1);
+  }
+
+  if(!x.startsWith("7")){
+    x = "7" + x;
+  }
+
+  x = x.substring(0,11);
+
+  let result = "+7";
+
+  if(x.length > 1){
+    result += "(" + x.substring(1,4);
+  }
+
+  if(x.length >= 4){
+    result += ")";
+  }
+
+  if(x.length > 4){
+    result += x.substring(4,7);
+  }
+
+  if(x.length > 7){
+    result += "-" + x.substring(7,9);
+  }
+
+  if(x.length > 9){
+    result += "-" + x.substring(9,11);
+  }
+
+  e.target.value = result;
+});
+
 function sendToGoogle(team, phone){
   const data = new FormData();
   data.append(TEAM_ENTRY, team);
@@ -298,6 +328,24 @@ function sendToGoogle(team, phone){
     method: "POST",
     mode: "no-cors",
     body: data
+  });
+}
+
+function sendEvent(action, stage, details = "", hint = ""){
+  const team = localStorage.getItem("teamName") || "";
+  const phone = localStorage.getItem("captainPhone") || "";
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      team: team,
+      phone: phone,
+      stage: stage,
+      action: action,
+      details: details,
+      hint: hint
+    })
   });
 }
 
@@ -312,10 +360,23 @@ function registerTeam(){
     return;
   }
 
+  if(phone.length !== 16){
+    msg.className = "message error";
+    msg.textContent = "Введите телефон полностью.";
+    return;
+  }
+
   localStorage.setItem("teamName", team);
   localStorage.setItem("captainPhone", phone);
+  localStorage.setItem("stage", "registration");
 
   sendToGoogle(team, phone);
+
+  sendEvent(
+    "Регистрация",
+    "Старт",
+    "Команда зарегистрирована"
+  );
 
   msg.className = "message success";
   msg.textContent = "Команда зарегистрирована.";
@@ -323,6 +384,12 @@ function registerTeam(){
   setTimeout(() => {
     document.getElementById("registration").classList.add("hidden");
     document.getElementById("rules").classList.remove("hidden");
+
+    sendEvent(
+      "Открыт экран правил",
+      "Правила",
+      "Команда перешла к правилам"
+    );
   }, 700);
 }
 
@@ -332,61 +399,38 @@ function toggleRulesButton(){
 }
 
 function showIntro(){
+  localStorage.setItem("stage", "intro");
+
+  sendEvent(
+    "Правила приняты",
+    "Правила",
+    "Команда подтвердила правила"
+  );
+
   document.getElementById("rules").classList.add("hidden");
   document.getElementById("intro").classList.remove("hidden");
-}
 
-function showArchive(){
-  document.getElementById("intro").classList.add("hidden");
-  document.getElementById("archive").classList.remove("hidden");
+  sendEvent(
+    "Открыт тизер",
+    "Тизер",
+    "Команда перешла к тизеру"
+  );
 }
 
 function openMaterials(){
-  window.location.href = "materials/materials.html";
+  localStorage.setItem("stage", "materials");
+
+  sendEvent(
+    "Открыты материалы",
+    "Материалы",
+    "Команда получила доступ к материалам"
+  );
+
+  setTimeout(() => {
+    window.location.href = "materials/materials.html";
+  }, 300);
 }
 </script>
-<script>
 
-const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbzwtBCE16tLc-E0303pKpkXel4uKSItdD0KoY-3bNPNVvxwiPRelNOBBZyU1mBE_Z1scA/exec";
-
-async function sendEvent(action, stage, code = "") {
-
-  const team = localStorage.getItem("teamName") || "";
-  const phone = localStorage.getItem("captainPhone") || "";
-
-  try {
-
-    const response = await fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        team,
-        phone,
-        action,
-        stage,
-        code
-      })
-    });
-
-    return await response.json();
-
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-const FORM_URL =
-"...";
-
-...
-
-function openMaterials(){
-  window.location.href = "materials.html";
-}
-
-</script>
 </body>
 </html>
