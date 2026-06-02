@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Материалы</title>
 
 <style>
@@ -53,21 +52,14 @@ body::before{
   z-index:2;
 }
 
-.card,
-.file,
-.verify{
-  background:
-    linear-gradient(180deg, rgba(15,15,13,.96), rgba(7,7,6,.96));
+.card,.file,.verify{
+  background:linear-gradient(180deg, rgba(15,15,13,.96), rgba(7,7,6,.96));
   border:1px solid rgba(214,203,187,.14);
-  box-shadow:
-    0 0 35px rgba(0,0,0,.65),
-    inset 0 0 28px rgba(214,203,187,.025);
+  box-shadow:0 0 35px rgba(0,0,0,.65), inset 0 0 28px rgba(214,203,187,.025);
   margin-bottom:18px;
 }
 
-.card,.verify{
-  padding:22px;
-}
+.card,.verify{padding:22px}
 
 .label{
   color:var(--amber);
@@ -108,9 +100,7 @@ p{
   line-height:1.5;
 }
 
-.file{
-  overflow:hidden;
-}
+.file{overflow:hidden}
 
 .file img{
   width:100%;
@@ -119,9 +109,7 @@ p{
   filter:contrast(.88) saturate(.62) brightness(.78);
 }
 
-.file-body{
-  padding:15px;
-}
+.file-body{padding:15px}
 
 .file-title{
   color:var(--amber);
@@ -141,10 +129,6 @@ p{
 .file-status{
   color:var(--metal);
   font-size:12px;
-}
-
-.hidden{
-  display:none;
 }
 
 .digit-row{
@@ -168,6 +152,12 @@ p{
   outline:none;
 }
 
+.digit:focus{
+  border-color:var(--amber);
+  box-shadow:0 0 10px rgba(169,130,61,.35);
+  animation:blink .8s infinite;
+}
+
 .dot{
   height:42px;
   display:flex;
@@ -175,11 +165,6 @@ p{
   justify-content:center;
   color:var(--amber);
   font-size:22px;
-}
-.digit:focus{
-  border-color:var(--amber);
-  box-shadow:0 0 10px rgba(169,130,61,.35);
-  animation:blink .8s infinite;
 }
 
 button{
@@ -215,31 +200,10 @@ button{
   line-height:1.5;
 }
 
-.next-task{
-  margin-top:22px;
-  padding:18px;
-  border:1px solid rgba(169,130,61,.55);
-  background:rgba(5,5,5,.72);
-  box-shadow:inset 0 0 18px rgba(169,130,61,.06);
-}
-
-.next-task input{
-  width:100%;
-  background:#070707;
-  border:1px solid var(--line);
-  color:var(--paper);
-  padding:14px;
-  margin:10px 0 14px;
-  font-size:17px;
-  outline:none;
-  font-family:"Courier New", monospace;
-}
-
 .error{color:var(--danger)}
 .success{color:var(--success)}
 
-.modal,
-.photo-modal{
+.modal,.photo-modal{
   position:fixed;
   inset:0;
   background:rgba(3,3,3,.92);
@@ -285,27 +249,11 @@ button{
 }
 
 @keyframes textNoise{
-  0%, 88%, 100%{
-    opacity:1;
-    transform:none;
-    text-shadow:none;
-  }
-  89%{
-    opacity:.35;
-    transform:translateX(1px);
-    text-shadow:2px 0 rgba(169,130,61,.45);
-  }
-  90%{
-    opacity:.9;
-    transform:translateX(-1px);
-  }
-  91%{
-    opacity:.2;
-  }
-  92%{
-    opacity:1;
-    transform:none;
-  }
+  0%,88%,100%{opacity:1;transform:none;text-shadow:none}
+  89%{opacity:.35;transform:translateX(1px);text-shadow:2px 0 rgba(169,130,61,.45)}
+  90%{opacity:.9;transform:translateX(-1px)}
+  91%{opacity:.2}
+  92%{opacity:1;transform:none}
 }
 </style>
 </head>
@@ -315,92 +263,38 @@ button{
 <main class="wrap">
 
 <section class="card">
-  <div class="label">restored files</div>
+  <div class="label">case fragment</div>
   <h1>МАТЕРИАЛЫ</h1>
-  <p>Доступны восстановленные фрагменты архива.</p>
+
+  <p>
+    14 октября был обнаружен автомобиль, числящийся в архивных материалах дела.
+  </p>
+
+  <p>
+    Машина находилась без владельца. Часть документов была повреждена, часть — отсутствовала.
+    Восстановленные файлы ниже могут содержать данные, необходимые для дальнейшего движения.
+  </p>
 
   <div class="meta">
-    Статус: частично восстановлено<br>
+    Объект: BMW E38<br>
+    Статус: не закрыто<br>
     Доступно файлов: 8<br>
     Последовательность: сохранена
   </div>
 
   <div class="note">
-    Некоторые материалы могут содержать данные, необходимые для продолжения.
+    Изучайте материалы в порядке восстановления. Не все файлы содержат полезные данные.
   </div>
 </section>
 
-<section class="file">
-  <img src="/Archive-/materials/PHOTO_01.jpg" onclick="openPhoto(this.src)">
-  <div class="file-body">
-    <div class="file-title">Файл 01</div>
-    <div class="file-name">PHOTO_01.jpg</div>
-    <div class="file-status">Восстановлено полностью</div>
-  </div>
-</section>
-
-<section class="file">
-  <img src="/Archive-/materials/PHOTO_02.jpg" onclick="openPhoto(this.src)">
-  <div class="file-body">
-    <div class="file-title">Файл 02</div>
-    <div class="file-name">PHOTO_02.jpg</div>
-    <div class="file-status">Восстановлено полностью</div>
-  </div>
-</section>
-
-<section class="file">
-  <img src="/Archive-/materials/PHOTO_03.jpg" onclick="openPhoto(this.src)">
-  <div class="file-body">
-    <div class="file-title">Файл 03</div>
-    <div class="file-name">PHOTO_03.jpg</div>
-    <div class="file-status">Повреждение изображения: 2%</div>
-  </div>
-</section>
-
-<section class="file">
-  <img src="/Archive-/materials/PHOTO_04.jpg" onclick="openPhoto(this.src)">
-  <div class="file-body">
-    <div class="file-title">Файл 04</div>
-    <div class="file-name">PHOTO_04.jpg</div>
-    <div class="file-status">Повреждение изображения: 3%</div>
-  </div>
-</section>
-
-<section class="file">
-  <img src="/Archive-/materials/PHOTO_05.jpg" onclick="openPhoto(this.src)">
-  <div class="file-body">
-    <div class="file-title">Файл 05</div>
-    <div class="file-name">PHOTO_05.jpg</div>
-    <div class="file-status">Восстановлено полностью</div>
-  </div>
-</section>
-
-<section class="file">
-  <img src="/Archive-/materials/PHOTO_06.jpg" onclick="openPhoto(this.src)">
-  <div class="file-body">
-    <div class="file-title">Файл 06</div>
-    <div class="file-name">PHOTO_06.jpg</div>
-    <div class="file-status">Фрагмент документа</div>
-  </div>
-</section>
-
-<section class="file">
-  <img src="/Archive-/materials/PHOTO_07.jpg" onclick="openPhoto(this.src)">
-  <div class="file-body">
-    <div class="file-title">Файл 07</div>
-    <div class="file-name">PHOTO_07.jpg</div>
-    <div class="file-status">Фрагмент документа</div>
-  </div>
-</section>
-
-<section class="file">
-  <img src="/Archive-/materials/PHOTO_08.jpg" onclick="openPhoto(this.src)">
-  <div class="file-body">
-    <div class="file-title">Файл 08</div>
-    <div class="file-name">PHOTO_08.jpg</div>
-    <div class="file-status">Восстановлено частично</div>
-  </div>
-</section>
+<section class="file"><img src="/Archive-/materials/PHOTO_01.jpg" onclick="openPhoto(this.src)"><div class="file-body"><div class="file-title">Файл 01</div><div class="file-name">PHOTO_01.jpg</div><div class="file-status">Восстановлено полностью</div></div></section>
+<section class="file"><img src="/Archive-/materials/PHOTO_02.jpg" onclick="openPhoto(this.src)"><div class="file-body"><div class="file-title">Файл 02</div><div class="file-name">PHOTO_02.jpg</div><div class="file-status">Восстановлено полностью</div></div></section>
+<section class="file"><img src="/Archive-/materials/PHOTO_03.jpg" onclick="openPhoto(this.src)"><div class="file-body"><div class="file-title">Файл 03</div><div class="file-name">PHOTO_03.jpg</div><div class="file-status">Повреждение изображения: 2%</div></div></section>
+<section class="file"><img src="/Archive-/materials/PHOTO_04.jpg" onclick="openPhoto(this.src)"><div class="file-body"><div class="file-title">Файл 04</div><div class="file-name">PHOTO_04.jpg</div><div class="file-status">Повреждение изображения: 3%</div></div></section>
+<section class="file"><img src="/Archive-/materials/PHOTO_05.jpg" onclick="openPhoto(this.src)"><div class="file-body"><div class="file-title">Файл 05</div><div class="file-name">PHOTO_05.jpg</div><div class="file-status">Восстановлено полностью</div></div></section>
+<section class="file"><img src="/Archive-/materials/PHOTO_06.jpg" onclick="openPhoto(this.src)"><div class="file-body"><div class="file-title">Файл 06</div><div class="file-name">PHOTO_06.jpg</div><div class="file-status">Фрагмент документа</div></div></section>
+<section class="file"><img src="/Archive-/materials/PHOTO_07.jpg" onclick="openPhoto(this.src)"><div class="file-body"><div class="file-title">Файл 07</div><div class="file-name">PHOTO_07.jpg</div><div class="file-status">Фрагмент документа</div></div></section>
+<section class="file"><img src="/Archive-/materials/PHOTO_08.jpg" onclick="openPhoto(this.src)"><div class="file-body"><div class="file-title">Файл 08</div><div class="file-name">PHOTO_08.jpg</div><div class="file-status">Восстановлено частично</div></div></section>
 
 <section class="verify">
   <div class="label">data verification</div>
@@ -408,46 +302,34 @@ button{
 
   <p>Часть данных удалось восстановить. Для продолжения необходимо подтвердить найденную информацию.</p>
 
-<label>Данные 01</label>
-<div class="digit-row" data-target="data01">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <span class="dot">.</span>
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-</div>
+  <label>Данные 01</label>
+  <div class="digit-row" data-target="data01">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <span class="dot">.</span>
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+  </div>
 
   <label>Данные 02</label>
-<div class="digit-row" data-target="data02">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <span class="dot">.</span>
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-  <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-</div>
+  <div class="digit-row" data-target="data02">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <span class="dot">.</span>
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+  </div>
 
   <button onclick="verifyData()">Подтвердить</button>
-
   <div id="verifyMessage" class="message"></div>
-
-  <div id="nextTask" class="next-task hidden">
-    <div class="label">field response</div>
-    <p>Ответ с локации</p>
-
-    <input id="fieldAnswer" type="text" placeholder="Введите ответ">
-
-    <button onclick="checkFieldAnswer()">Отправить ответ</button>
-
-    <div id="fieldMessage" class="message"></div>
-  </div>
 </section>
 
 </main>
@@ -469,10 +351,8 @@ button{
 </div>
 
 <script>
-const ORGANIZER_PHONE = "+79891302318";
-
 const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbzwtBCE16tLc-E0303pKpkXel4uKSItdD0KoY-3bNPNVvxwiPRelNOBBZyU1mBE_Z1scA/exec";
+"https://script.google.com/macros/s/AKfycbwdYKJpRrNsqkqfBuIC3r7UQFvPxlPNVL7rX_N72ElTixqZtlZHbvbytThkbvBk-qDVcQ/exec";
 
 document.querySelectorAll(".digit").forEach((input, index, all) => {
   input.addEventListener("input", () => {
@@ -505,18 +385,32 @@ function getDataValue(rowSelector){
   return nums.substring(0, 2) + "." + nums.substring(2);
 }
 
+function callScript(params, callback){
+  const cbName = "cb_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+
+  window[cbName] = function(result){
+    delete window[cbName];
+    script.remove();
+    callback(result);
+  };
+
+  params.callback = cbName;
+
+  const query = new URLSearchParams(params).toString();
+  const script = document.createElement("script");
+  script.src = SCRIPT_URL + "?" + query;
+  document.body.appendChild(script);
+}
+
 function openHelp(){
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify({
-      team: localStorage.getItem("teamName") || "Команда не указана",
-      phone: localStorage.getItem("captainPhone") || "",
-      action: "hint",
-      stage: "Материалы",
-      code: ""
-    })
-  });
+  callScript({
+    action:"hint",
+    team:localStorage.getItem("teamName") || "Команда не указана",
+    phone:localStorage.getItem("captainPhone") || "",
+    stage:"Материалы",
+    details:"Открыто окно помощи",
+    hint:"help"
+  }, function(){});
 
   document.getElementById("helpModal").style.display = "flex";
 }
@@ -539,38 +433,37 @@ function verifyData(){
   const d2 = getDataValue("data02");
   const msg = document.getElementById("verifyMessage");
 
-  if(d1 === "43.732489" && d2 === "44.688291"){
-    msg.className = "message success";
-    msg.innerHTML =
-      "СОВПАДЕНИЕ ПОДТВЕРЖДЕНО.<br><br>" +
-      "Фрагменты сложились в точку, которой не должно было быть в архиве.<br><br>" +
-      "Отправляйтесь туда. Осмотрите место внимательно. Не забирайте лишнего. Не оставляйте следов.<br><br>" +
-      "Если найдёте то, что было оставлено после него, вернитесь сюда и введите ответ ниже.";
+  msg.className = "message";
+  msg.textContent = "Проверка данных...";
 
-    document.getElementById("nextTask").classList.remove("hidden");
+  callScript({
+    action:"check",
+    stage:"materials",
+    team:localStorage.getItem("teamName") || "Команда не указана",
+    phone:localStorage.getItem("captainPhone") || "",
+    data01:d1,
+    data02:d2
+  }, function(result){
 
-  } else {
-    msg.className = "message error";
-    msg.textContent = "Данные не совпадают с восстановленными материалами.";
-  }
-}
+    if(result && result.ok){
+      localStorage.setItem("data01", d1);
+      localStorage.setItem("data02", d2);
+      localStorage.setItem("stage", "location01");
 
-function checkFieldAnswer(){
-  const answer = document.getElementById("fieldAnswer").value.trim().toLowerCase();
-  const msg = document.getElementById("fieldMessage");
+      msg.className = "message success";
+      msg.innerHTML =
+        "СОВПАДЕНИЕ ПОДТВЕРЖДЕНО.<br><br>" +
+        "Файл LOCATION_01 восстановлен.";
 
-  if(answer === "3840"){
-    msg.className = "message success";
-    msg.innerHTML = "ОТВЕТ ПРИНЯТ.<br><br>Архивный уровень разблокирован.";
+      setTimeout(() => {
+        window.location.href = result.next || "../location01.html";
+      }, 1200);
 
-    setTimeout(() => {
-      window.location.href = "../archive1.html";
-    }, 1200);
-
-  } else {
-    msg.className = "message error";
-    msg.textContent = "Ответ не совпадает с материалами, найденными на месте.";
-  }
+    } else {
+      msg.className = "message error";
+      msg.textContent = "Данные не совпадают с восстановленными материалами.";
+    }
+  });
 }
 </script>
 
