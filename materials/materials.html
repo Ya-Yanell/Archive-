@@ -384,6 +384,28 @@ function getDataValue(rowSelector){
 
 function callScript(params, callback){
   const cbName = "cb_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+  const script = document.createElement("script");
+
+  const timer = setTimeout(() => {
+    delete window[cbName];
+    script.remove();
+    callback({ ok:false, error:"timeout" });
+  }, 7000);
+
+  window[cbName] = function(result){
+    clearTimeout(timer);
+    delete window[cbName];
+    script.remove();
+    callback(result);
+  };
+
+  params.callback = cbName;
+
+  const query = new URLSearchParams(params).toString();
+  script.src = SCRIPT_URL + "?" + query;
+  document.body.appendChild(script);
+}
+  const cbName = "cb_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
 
   window[cbName] = function(result){
     delete window[cbName];
@@ -441,6 +463,45 @@ function getHint(){
 }
 
 function verifyData(){
+  const d1 = getDataValue("data01");
+  const d2 = getDataValue("data02");
+  const msg = document.getElementById("verifyMessage");
+
+  msg.className = "message";
+  msg.textContent = "Проверка данных...";
+
+  callScript({
+    action:"check",
+    stage:"materials",
+    team:localStorage.getItem("teamName") || "Команда не указана",
+    phone:localStorage.getItem("captainPhone") || "",
+    data01:d1,
+    data02:d2
+  }, function(result){
+
+    if(result && result.ok){
+      localStorage.setItem("data01", d1);
+      localStorage.setItem("data02", d2);
+      localStorage.setItem("stage", "location01");
+
+      msg.className = "message success";
+      msg.innerHTML =
+        "СОВПАДЕНИЕ ПОДТВЕРЖДЕНО.<br><br>" +
+        "Файл LOCATION_01 восстановлен.";
+
+      setTimeout(() => {
+        window.location.href = "location01.html";
+      }, 1200);
+
+    } else if(result && result.error === "timeout"){
+      msg.className = "message error";
+      msg.textContent = "Нет ответа от сервера проверки. Проверьте Apps Script.";
+    } else {
+      msg.className = "message error";
+      msg.textContent = "Данные не совпадают с восстановленными материалами.";
+    }
+  });
+}{
   const d1 = getDataValue("data01");
   const d2 = getDataValue("data02");
   const msg = document.getElementById("verifyMessage");
